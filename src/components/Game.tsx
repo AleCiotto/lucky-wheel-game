@@ -5,6 +5,8 @@ import PhraseDisplay from "./PhraseDisplay";
 import GuessThePhrase from "./GuessThePhrase";
 import Wheel from "./Wheel";
 
+type GameState = 'wheel' | 'selection' | 'guess';
+
 export function Game() {
     // TODO: Move states in one single object?
     const [selectedConsonants, setSelectedConsonants] = useState<string[]>([]);
@@ -14,21 +16,26 @@ export function Game() {
     const [quoteAuthor, setQuoteAuthor] = useState("");
     const [gameIsStarted, setGameIsStarted] = useState(false);
     const [playerPoints, setPlayerPoints] = useState(0);
+    const [gameState, setGameState] = useState<GameState>('wheel');
+    const vowerlCosts = 250;
 
     const onVowelSelect = (formData: SelectVowelForm) => {
-        if (playerPoints - 500 < 0) {
+        if (playerPoints - vowerlCosts < 0) {
             alert('Not enough points to buy a vowel!');
             return;
         }
-        setPlayerPoints(playerPoints - 500);
+        setPlayerPoints(playerPoints - vowerlCosts);
         setSelectedVowels([...selectedVowels, formData.vowel]);
+        setGameState('guess');
     }
     const onConsonantSelect = (formData: SelectConsonantForm) => {
         setSelectedConsonants([...selectedConsonants, formData.consonant]);
+        setGameState('guess');
     }
     const onWheelTransitionEnd = (points) => {
         if (!points) setPlayerPoints(0);
         setPlayerPoints(playerPoints + points);
+        setGameState('selection');
     }
 
     useEffect(() => {
@@ -73,17 +80,17 @@ export function Game() {
                         gameIsWon && <div>Congratulations! You've won!</div>
                     }
 
-                    <Wheel onTransitionEnd={onWheelTransitionEnd} />
+                    <Wheel onTransitionEnd={onWheelTransitionEnd} disabled={gameState === 'selection'} />
 
                     <PhraseDisplay phrase={phrase} selectedLetters={[...selectedConsonants, ...selectedVowels]} key={`phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`} />
                     <i>By {quoteAuthor}</i>
 
                     <div>Points: {playerPoints}</div>
 
-                    <SelectConsonant disabled={gameIsWon} letters={selectedConsonants} onSelect={onConsonantSelect} key={`consontats_${selectedConsonants.join('')}`} />
-                    <SelectVowel disabled={gameIsWon} letters={selectedVowels} onSelect={onVowelSelect} key={`vowels_${selectedVowels.join('')}`} />
+                    <SelectConsonant disabled={gameIsWon || gameState != 'selection'} letters={selectedConsonants} onSelect={onConsonantSelect} key={`consontats_${selectedConsonants.join('')}`} />
+                    <SelectVowel disabled={gameIsWon || gameState != 'guess' || playerPoints < vowerlCosts} letters={selectedVowels} onSelect={onVowelSelect} key={`vowels_${selectedVowels.join('')}`} />
 
-                    <GuessThePhrase phrase={phrase} selectedLetters={[...selectedConsonants, ...selectedVowels]} onWin={() => setGameIsWon(true)} key={`guess_phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`} />
+                    <GuessThePhrase disabled={gameState != 'guess'} phrase={phrase} selectedLetters={[...selectedConsonants, ...selectedVowels]} onWin={() => setGameIsWon(true)} key={`guess_phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`} />
                 </div>
             }
         </>

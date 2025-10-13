@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useForm } from "react-hook-form";
 
 type GuessThePhraseProps = {
+    disabled?: boolean,
     phrase: string;
     onWin: () => void;
     selectedLetters: string[];
