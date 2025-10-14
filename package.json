@@ -1,8 +1,8 @@
 {
-  "name": "react-kickstart-project",
+  "name": "lucky-wheel-game",
   "version": "0.0.1",
-  "description": "react boilerplate kit",
-  "author": "Václav Daněk",
+  "description": "Lucky wheel game made with react",
+  "author": "Mercurio Alessandro",
   "license": "MIT",
   "private": true,
   "type": "module",
