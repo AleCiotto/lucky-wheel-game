@@ -5,6 +5,7 @@ type GuessThePhraseProps = {
     disabled?: boolean,
     phrase: string;
     onWin: () => void;
+    onIncorrectGuess: () => void;
     selectedLetters: string[];
 }
 
@@ -12,7 +13,7 @@ type GuessThePhraseForm = {
     guesses: string[];
 };
 
-function GuessThePhrase({ phrase, selectedLetters, onWin }: GuessThePhraseProps) {
+function GuessThePhrase({ phrase, selectedLetters, onWin, onIncorrectGuess }: GuessThePhraseProps) {
     const chars = phrase.split('');
     const methods = useForm<GuessThePhraseForm>({
         defaultValues: { guesses: [] }
@@ -44,7 +45,7 @@ function GuessThePhrase({ phrase, selectedLetters, onWin }: GuessThePhraseProps)
         if (guessedPhrase === phrase.toUpperCase()) {
             onWin();
         } else {
-            alert('Incorrect guess. Try again!');
+            onIncorrectGuess();
         }
     }
 

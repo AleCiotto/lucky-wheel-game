@@ -11,7 +11,7 @@ function HomePage() {
   return (
     <div className='mt-10'>
       <h1 className='text-center text-2xl'>
-        <FontAwesomeIcon icon={faDoorOpen} /> Select
+        <FontAwesomeIcon icon={faDoorOpen} /> Guess the Phrase!
       </h1>
       <Game />
     </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, useRef, useState } from 'react';
 import './wheel.module.scss';
 
 type WheelProps = {
@@ -19,36 +19,29 @@ const sliceMap = [
 
 function Wheel({ onTransitionEnd, disabled }: WheelProps) {
     let [degrees, setDegrees] = useState(0);
-    let [previousDegrees, setPreviousDegrees] = useState<number | null>(null);
+    let [previousDegrees, setPreviousDegrees] = useState<number>(0);
     let wheelRef = useRef<HTMLDivElement>(null);
-    let animation: Animation;
 
-    useEffect(() => {
-        if (disabled || (degrees === 0 && previousDegrees === null)) return;
+    const [isAnimating, setIsAnimating] = useState(false);
 
-        const floorDegrees = Math.floor(degrees / 45) * 45 + 720;
-        // const previousDegreesToSave = Math.floor(floorDegrees % 360);
+    const onAnimationEnd = () => {
+        console.log('animationend', degrees, previousDegrees);
+        setIsAnimating(false);
 
-        const selectedSlice = Math.floor(degrees / 45);
+        const selectedSlice = Math.floor(degrees % 720 / 45);
         const points = sliceMap[selectedSlice].points;
         console.log('Landed on slice', selectedSlice, 'with points', points);
+        onTransitionEnd(points);
+    };
 
-        wheelRef.current?.addEventListener('finish', onTransitionEnd(points), { once: true });
-
-        animation = wheelRef.current!.animate([
-            { transform: `rotate(-${previousDegrees}deg)` },
-            { transform: `rotate(-${floorDegrees}deg)` }
-        ], {
-            duration: 4000,
-            direction: 'normal',
-            easing: 'cubic-bezier(0.440, -0.205, 0.000, 1.130)',
-            fill: 'forwards',
-            iterations: 1,
-            id: 'wheel',
-        });
-
-        setPreviousDegrees(floorDegrees % 360);
-    }, [degrees]);
+    const onButtonClick = () => {
+        const nextDegrees = Math.floor(Math.random() * 360);
+        const floorNextDegrees = Math.floor(nextDegrees / 45) * 45 + 720;
+        console.log('spinning to', `(${floorNextDegrees})`, nextDegrees, 'from', previousDegrees);
+        setPreviousDegrees(degrees % 720);
+        setDegrees(floorNextDegrees);
+        setIsAnimating(true);
+    }
 
     return (
         <>
@@ -56,7 +49,12 @@ function Wheel({ onTransitionEnd, disabled }: WheelProps) {
                 <span className='pointer'>▼</span>
                 <div
                     ref={wheelRef}
-                    className={`pie w-full h-full bg-red-500`}
+                    className={`pie ${isAnimating ? 'spinning' : ''} w-full h-full bg-red-500`}
+                    style={{
+                        '--previousDegrees': `-${previousDegrees}deg`,
+                        '--degrees': `-${degrees}deg`
+                    } as CSSProperties}
+                    onAnimationEnd={onAnimationEnd}
                 >
                     {
                         sliceMap.map((slice, index) => (
@@ -69,21 +67,10 @@ function Wheel({ onTransitionEnd, disabled }: WheelProps) {
                             </span>
                         ))
                     }
-
-                    {/* <span className="slice slice-1 bg-blue-500" data-points="500">1</span>
-                <span className="slice slice-2 bg-yellow-500" data-points="200">2</span>
-                <span className="slice slice-3 bg-green-500" data-points="NaN">3</span>
-                <span className="slice slice-4 bg-white" data-points="150">4</span>
-                <span className="slice slice-5 bg-white" data-points="1000">5</span>
-                <span className="slice slice-6 bg-white" data-points="-200">6</span>
-                <span className="slice slice-7 bg-white" data-points="0">7</span>
-                <span className="slice slice-8 bg-white" data-points="250">8</span> */}
                 </div>
             </div>
-            <button disabled={disabled} className='mt-10 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600' onClick={() => {
-                setDegrees(Math.floor(Math.random() * 360));
-            }}>
-                Click me
+            <button disabled={disabled || isAnimating} className='mt-10 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600' onClick={onButtonClick}>
+                Spin the wheel
             </button>
         </>
     )

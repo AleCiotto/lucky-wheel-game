@@ -4,6 +4,7 @@ import SelectVowel, { SelectVowelForm } from "./SelectVowel";
 import PhraseDisplay from "./PhraseDisplay";
 import GuessThePhrase from "./GuessThePhrase";
 import Wheel from "./Wheel";
+import './game.module.scss';
 
 type GameState = 'wheel' | 'selection' | 'guess';
 
@@ -67,32 +68,45 @@ export function Game() {
     }, [gameIsStarted])
 
     return (
-        <>
-            <h2>Guess the Phrase!</h2>
-
+        <div className="game flex justify-center m-4">
             {!gameIsStarted &&
                 <button onClick={() => setGameIsStarted(true)}>Start Game</button>
             }
 
             {gameIsStarted &&
-                <div className="Game">
+                <div className="game-inner">
                     {
                         gameIsWon && <div>Congratulations! You've won!</div>
                     }
 
-                    <Wheel onTransitionEnd={onWheelTransitionEnd} disabled={gameState === 'selection'} />
+                    <div className={`wheel-state border-2 border-transparent ${gameState === 'wheel' ? 'active' : ''}`}>
+                        <Wheel onTransitionEnd={onWheelTransitionEnd} disabled={gameState === 'selection'} />
+                    </div>
+
 
                     <PhraseDisplay phrase={phrase} selectedLetters={[...selectedConsonants, ...selectedVowels]} key={`phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`} />
                     <i>By {quoteAuthor}</i>
 
                     <div>Points: {playerPoints}</div>
 
-                    <SelectConsonant disabled={gameIsWon || gameState != 'selection'} letters={selectedConsonants} onSelect={onConsonantSelect} key={`consontats_${selectedConsonants.join('')}`} />
-                    <SelectVowel disabled={gameIsWon || gameState != 'guess' || playerPoints < vowerlCosts} letters={selectedVowels} onSelect={onVowelSelect} key={`vowels_${selectedVowels.join('')}`} />
+                    <div className={`selection-state border-2 border-transparent ${gameState === 'selection' ? 'active' : ''}`}>
+                        <SelectConsonant disabled={gameIsWon || gameState != 'selection'} letters={selectedConsonants} onSelect={onConsonantSelect} key={`consontats_${selectedConsonants.join('')}`} />
+                    </div>
 
-                    <GuessThePhrase disabled={gameState != 'guess'} phrase={phrase} selectedLetters={[...selectedConsonants, ...selectedVowels]} onWin={() => setGameIsWon(true)} key={`guess_phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`} />
+                    <div className={`guess-state border-2 border-transparent ${gameState === 'guess' ? 'active' : ''}`}>
+                        <SelectVowel disabled={gameIsWon || gameState != 'guess' || playerPoints < vowerlCosts} letters={selectedVowels} onSelect={onVowelSelect} key={`vowels_${selectedVowels.join('')}`} />
+
+                        <GuessThePhrase
+                            disabled={gameState != 'guess'}
+                            phrase={phrase}
+                            selectedLetters={[...selectedConsonants, ...selectedVowels]}
+                            onIncorrectGuess={() => setGameState('selection')}
+                            onWin={() => setGameIsWon(true)}
+                            key={`guess_phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`}
+                        />
+                    </div>
                 </div>
             }
-        </>
+        </div>
     );
 }

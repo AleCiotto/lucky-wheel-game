@@ -1,0 +1,21 @@
+.game {
+    overflow: hidden;
+}
+
+.active {
+    animation: active-border infinite 2s ease-in-out;
+}
+
+@keyframes active-border {
+    0% {
+        border-color: white;
+    }
+
+    50% {
+        border-color: green;
+    }
+
+    100% {
+        border-color: white;
+    }
+}
