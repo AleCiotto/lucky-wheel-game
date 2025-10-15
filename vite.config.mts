@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from 'node:path';
 import { env } from 'node:process';
 
+
 // https://vite.dev/config/
 export default defineConfig({
     base: '/<REPO>/'.replace('<REPO>', env.REPO_NAME || ''),
