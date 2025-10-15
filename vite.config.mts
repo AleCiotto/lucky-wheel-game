@@ -9,7 +9,6 @@ export default defineConfig({
     base: process.env.NODE_ENV === 'production'
         ? '/lucky-wheel-game/' // per GitHub Pages
         : '/',                 // per sviluppo locale
-    build: { outDir: 'docs' },
     plugins: [
         react(),
         tailwindcss(),
