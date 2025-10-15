@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+import './style.css'
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
