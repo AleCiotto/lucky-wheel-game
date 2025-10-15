@@ -1,5 +1,6 @@
 {
   "name": "lucky-wheel-game",
+  "homepage": "https://aleciotto.github.io/lucky-wheel-game/",
   "version": "0.0.1",
   "description": "Lucky wheel game made with react",
   "author": "Mercurio Alessandro",
@@ -15,7 +16,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "type-check": "tsc",
-    "deploy": "vite build && gh-pages -d dist"
+    "predeploy": "vite build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
