@@ -4,7 +4,7 @@ import SelectVowel, { SelectVowelForm } from "./SelectVowel";
 import PhraseDisplay from "./PhraseDisplay";
 import GuessThePhrase from "./GuessThePhrase";
 import Wheel from "./Wheel";
-import './game.module.scss';
+import './game.scss';
 
 type GameState = 'wheel' | 'selection' | 'guess';
 
