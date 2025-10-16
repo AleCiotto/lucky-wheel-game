@@ -1,5 +1,5 @@
 import { CSSProperties, useRef, useState } from 'react';
-import './wheel.module.scss';
+import './wheel.scss';
 
 type WheelProps = {
     disabled?: boolean
