@@ -36,7 +36,6 @@ function Wheel({ onTransitionEnd, disabled }: WheelProps) {
     const onButtonClick = () => {
         const nextDegrees = Math.floor(Math.random() * 360);
         const floorNextDegrees = Math.floor(nextDegrees / 45) * 45 + 720;
-        console.log('spinning to', `(${floorNextDegrees})`, nextDegrees, 'from', previousDegrees);
         setPreviousDegrees(degrees % 720);
         setDegrees(floorNextDegrees);
         setIsAnimating(true);
