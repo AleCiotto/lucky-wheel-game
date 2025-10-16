@@ -1,1 +1,0 @@
-export const basename: string = '/dist' // root pathname

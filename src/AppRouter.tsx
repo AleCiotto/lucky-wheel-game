@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
+import PageLayout from "./PageLayout";
 
 export default function AppRouter() {
     // usa BASE_URL fornito da Vite e rimuovi lo slash finale se presente (salva "/" com'è)
@@ -13,7 +14,7 @@ export default function AppRouter() {
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <HomePage />,
+            element: <PageLayout><HomePage /></PageLayout>,
         },
         {
             path: "/error",
