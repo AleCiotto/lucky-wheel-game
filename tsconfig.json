@@ -5,18 +5,41 @@
     "sourceMap": true,
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "allowJs": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "useUnknownInCatchVariables": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
-    "typeRoots": ["src/types/**", "node_modules/@types"],
-    "baseUrl": "./"
+    "typeRoots": [
+      "src/types/**",
+      "node_modules/@types"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@contexts/*": [
+        "src/contexts/*"
+      ],
+    },
   },
-  "include": ["src/**/*"]
+  "include": [
+    "src/**/*"
+  ]
 }
