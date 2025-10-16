@@ -25,7 +25,6 @@ function Wheel({ onTransitionEnd, disabled }: WheelProps) {
     const [isAnimating, setIsAnimating] = useState(false);
 
     const onAnimationEnd = () => {
-        console.log('animationend', degrees, previousDegrees);
         setIsAnimating(false);
 
         const selectedSlice = Math.floor(degrees % 720 / 45);
