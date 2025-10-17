@@ -1,5 +1,6 @@
 import { Theme, useTheme } from "@src/contexts/ThemeContext";
 import { useForm } from "react-hook-form";
+import "./theme-switcher.scss";
 
 type ThemeSwitcherForm = {
     theme: Theme;
@@ -16,16 +17,16 @@ const ThemeSwitcher = () => {
 
     return (
         <form onChange={handleSubmit(onSubmit)} className="flex">
+            <input type="radio" {...register("theme")} id="theme-switcher-light" className="sr-only" value="light" />
             <label htmlFor="theme-switcher-light" className={`opacity-50 dark:opacity-100 dark:z-5 border-2 border-black bg-white h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700`}>
                 <span className="sr-only">Toggle light theme</span>
                 <LightSvg />
             </label>
-            <input type="radio" {...register("theme")} id="theme-switcher-light" className="sr-only" value="light" />
+            <input type="radio" {...register("theme")} id="theme-switcher-dark" className="sr-only" value="dark" />
             <label htmlFor="theme-switcher-dark" className="-ml-6 opacity-100 z-5 dark:opacity-50 dark:z-0 border-2 border-black bg-white h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <span className="sr-only">Toggle dark theme</span>
                 <DarkSvg />
             </label>
-            <input type="radio" {...register("theme")} id="theme-switcher-dark" className="sr-only" value="dark" />
         </form>
     );
 }

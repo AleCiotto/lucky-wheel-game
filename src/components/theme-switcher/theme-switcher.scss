@@ -1,0 +1,11 @@
+input[type="radio"].sr-only {
+    color: red;
+
+    +label {
+        cursor: pointer;
+    }
+
+    &:focus+label {
+        outline: 4px auto;
+    }
+}
