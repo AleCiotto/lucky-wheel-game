@@ -13,7 +13,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
         <div className="page-layout grow-1 flex flex-col" data-theme={theme}>
             <SkipToMainContent />
             <Header />
-            <main id="main-content" className="grow-1">
+            <main id="main-content" className="grow-1 dark:bg-gray-600 dark:text-white">
                 {children}
             </main>
             <Footer />
