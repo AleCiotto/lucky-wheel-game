@@ -3,7 +3,7 @@ import { FormattedMessage } from "react-intl";
 const SkipToMainContent = () => {
     return (
         <a
-            href="#content"
+            href="#main-content"
             type="button"
             className="w-full block text-center border-black sr-only focus:not-sr-only!"
         >
