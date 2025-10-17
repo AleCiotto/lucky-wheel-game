@@ -10,10 +10,12 @@ const PageLayout = ({ children }: PageLayoutProps) => {
     const { theme } = useTheme();
 
     return (
-        <div className="page-layout" data-theme={theme}>
+        <div className="page-layout grow-1 flex flex-col" data-theme={theme}>
             <SkipToMainContent />
             <Header />
-            {children}
+            <main id="main-content" className="grow-1">
+                {children}
+            </main>
             <Footer />
         </div>
     )
