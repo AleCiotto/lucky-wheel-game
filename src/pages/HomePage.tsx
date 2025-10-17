@@ -11,7 +11,7 @@ function HomePage() {
 
   return (
     <div className='mt-10'>
-      <h1 className='text-center text-2xl'>
+      <h1 className='text-center text-2xl dark:bg-gray-600'>
         <FontAwesomeIcon icon={faDoorOpen} /> <FormattedMessage id="home.h1" />
       </h1>
       <Game />

@@ -1,14 +1,8 @@
 {
   "home.h1": "Welcome to Lucky Wheel Game",
   "home.start": "Start Game",
-  "alerts.onGlobalError": "An error has occurred, if it is serious and persists, please contact support.",
-  "alerts.update": "The application has been updated",
-  "errors.login.401": "Invalid credentials!",
-  "errors.login.500": "Login failed",
-  "errors.login.503": "Login failed",
   "close": "Close",
   "yes": "Yes",
   "no": "No",
-  "reloadNewVersion": "Load new version",
-  "warning": "Warning"
+  "skip_to_main_content": "Skip to main content"
 }

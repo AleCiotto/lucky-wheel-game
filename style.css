@@ -1,1 +1,9 @@
 @import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+    --color-stoa: #37b8b4;
+    --color-stoa-dark: #2b938a;
+    --color-stoa-light: #54f1eca8;
+}
