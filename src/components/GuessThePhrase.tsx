@@ -66,10 +66,10 @@ function GuessThePhrase({ phrase, selectedLetters, onWin, onIncorrectGuess }: Gu
         }
     });
 
-    return <form onSubmit={handleSubmit(onSubmit)}>
-        <div>{display}</div>
-        <button type="submit">Submit Guess</button>
-        <button onClick={() => reset()}>Reset</button>
+    return <form onSubmit={handleSubmit(onSubmit)} className="grid gap-2">
+        <div className="row-end-1">{display}</div>
+        <button type="submit" className="button row-end-2">Submit Guess</button>
+        <button onClick={() => reset()} className="button-secondary row-end-2">Reset</button>
     </form>;
 }
 

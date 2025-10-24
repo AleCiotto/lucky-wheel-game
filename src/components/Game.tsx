@@ -5,6 +5,7 @@ import PhraseDisplay from "./PhraseDisplay";
 import GuessThePhrase from "./GuessThePhrase";
 import Wheel from "./Wheel";
 import './game.scss';
+import { FormattedMessage } from "react-intl";
 
 type GameState = 'wheel' | 'selection' | 'guess';
 
@@ -13,8 +14,9 @@ export function Game() {
     const [selectedConsonants, setSelectedConsonants] = useState<string[]>([]);
     const [selectedVowels, setSelectedVowels] = useState<string[]>([]);
     const [gameIsWon, setGameIsWon] = useState(false);
-    const [phrase, setPhrase] = useState("");
+    const [phrase, setPhrase] = useState(""); // TODO: rename in quote anche store entire API response as quote object
     const [quoteAuthor, setQuoteAuthor] = useState("");
+    const [quoteCategory, setQuoteCategory] = useState("");
     const [gameIsStarted, setGameIsStarted] = useState(false);
     const [playerPoints, setPlayerPoints] = useState(0);
     const [gameState, setGameState] = useState<GameState>('wheel');
@@ -70,22 +72,33 @@ export function Game() {
     return (
         <div className="game flex justify-center m-4">
             {!gameIsStarted &&
-                <button onClick={() => setGameIsStarted(true)}>Start Game</button>
+                <button
+                    type="button"
+                    className="button"
+                    onClick={() => setGameIsStarted(true)}
+                >
+                    <FormattedMessage id="home.start" />
+                </button>
             }
 
             {gameIsStarted &&
                 <div className="game-inner">
                     {
-                        gameIsWon && <div>Congratulations! You've won!</div>
+                        gameIsWon && <div><FormattedMessage id="home.you_won" /></div>
                     }
 
                     <div className={`wheel-state border-2 border-transparent ${gameState === 'wheel' ? 'active' : ''}`}>
                         <Wheel onTransitionEnd={onWheelTransitionEnd} disabled={gameState === 'selection'} />
                     </div>
 
-
                     <PhraseDisplay phrase={phrase} selectedLetters={[...selectedConsonants, ...selectedVowels]} key={`phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`} />
-                    <i>By {quoteAuthor}</i>
+                    <i>
+                        <FormattedMessage id="quote.by" values={{ author: quoteAuthor }} />
+                    </i>
+
+                    <div>
+                        <FormattedMessage id="quote.category" values={{ category: quoteCategory }} />
+                    </div>
 
                     <div>Points: {playerPoints}</div>
 

@@ -1,6 +1,9 @@
 {
   "home.h1": "Welcome to Lucky Wheel Game",
   "home.start": "Start Game",
+  "home.you_won": "Congratulations! You won!",
+  "quote.by": "By {author}",
+  "quote.category": "Category: {category}",
   "close": "Close",
   "yes": "Yes",
   "no": "No",

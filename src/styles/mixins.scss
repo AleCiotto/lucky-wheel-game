@@ -1,0 +1,17 @@
+@mixin button-base {
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.button {
+    @include button-base;
+    border: 1px solid var(--color-stoa);
+    background-color: var(--color-stoa-light);
+}
+
+.button-secondary {
+    @include button-base;
+    border: 1px solid var(--color-stoa);
+    background-color: var(--color-stoa-dark);
+}

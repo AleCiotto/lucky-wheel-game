@@ -1,6 +1,8 @@
 {
     "home.h1": "Benvenuto alla Ruota della Fortuna",
     "home.start": "Inizia a giocare",
+    "quote.by": "Da {author}",
+    "quote.category": "Categoria: {category}",
     "close": "Chiudi",
     "yes": "Si",
     "no": "No",
