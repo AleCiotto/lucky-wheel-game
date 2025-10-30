@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
 
 type SelectVowelProps = {
     letters: string[];
@@ -23,7 +24,10 @@ const SelectVowel: React.FC<SelectVowelProps> = ({
     const vowels = 'AEIOU'.split('');
 
     return (
-        <div>
+        <div className='flex flex-col gap-4'>
+            <h2>
+                <FormattedMessage id="game.select_vowel_title" />
+            </h2>
             <form onSubmit={handleSubmit(onSelect)}>
                 <select id="vowel-select"
                     disabled={disabled}
@@ -40,8 +44,12 @@ const SelectVowel: React.FC<SelectVowelProps> = ({
                         </option>
                     ))}
                 </select>
-                <button type='submit'>
-                    Select
+                <button
+                    disabled={disabled}
+                    className='button'
+                    type='submit'
+                >
+                    <FormattedMessage id="game.select_vowel" />
                 </button>
             </form>
         </div>

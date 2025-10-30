@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { FormattedMessage } from 'react-intl';
+import { Form } from 'react-router-dom';
 
 type SelectConsonantProps = {
     letters: string[];
@@ -23,7 +25,10 @@ const SelectConsonant: React.FC<SelectConsonantProps> = ({
     const consonants = 'BCDFGHJKLMNPQRSTVWXYZ'.split('');
 
     return (
-        <div>
+        <div className='flex flex-col gap-4'>
+            <h2>
+                <FormattedMessage id="game.select_consonant_title" />
+            </h2>
             <form onSubmit={handleSubmit(onSelect)}>
                 <select id="consonant-select"
                     disabled={disabled}
@@ -40,8 +45,12 @@ const SelectConsonant: React.FC<SelectConsonantProps> = ({
                         </option>
                     ))}
                 </select>
-                <button type='submit'>
-                    Select
+                <button
+                    disabled={disabled}
+                    className='button'
+                    type='submit'
+                >
+                    <FormattedMessage id="game.select_consonant" />
                 </button>
             </form>
         </div>

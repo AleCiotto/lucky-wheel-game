@@ -87,27 +87,29 @@ export function Game() {
                         gameIsWon && <div><FormattedMessage id="home.you_won" /></div>
                     }
 
-                    <div className={`wheel-state border-2 border-transparent ${gameState === 'wheel' ? 'active' : ''} lg:col-span-2`}>
+                    <div className={`p-4 shadow-lg wheel-state border-2 border-transparent ${gameState === 'wheel' || gameState === 'guess' ? 'active' : ''} lg:col-span-2`}>
                         <Wheel onTransitionEnd={onWheelTransitionEnd} disabled={gameState === 'selection'} />
                     </div>
 
                     <div className="lg:col-span-3">
-                        <PhraseDisplay phrase={phrase} selectedLetters={[...selectedConsonants, ...selectedVowels]} key={`phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`} />
-                        <i>
-                            <FormattedMessage id="quote.by" values={{ author: quoteAuthor }} />
-                        </i>
+                        <div className="p-4 mb-2 shadow-lg">
+                            <PhraseDisplay phrase={phrase} selectedLetters={[...selectedConsonants, ...selectedVowels]} key={`phrase_${phrase.replaceAll(' ', '').toLocaleLowerCase()}`} />
+                            <i>
+                                <FormattedMessage id="quote.by" values={{ author: quoteAuthor }} />
+                            </i>
 
-                        <div>
-                            <FormattedMessage id="quote.category" values={{ category: quoteCategory }} />
+                            <div>
+                                <FormattedMessage id="quote.category" values={{ category: quoteCategory }} />
+                            </div>
                         </div>
 
                         <div>Points: {playerPoints}</div>
 
-                        <div className={`selection-state border-2 border-transparent ${gameState === 'selection' ? 'active' : ''}`}>
+                        <div className={`p-4 mb-2 shadow-lg selection-state border-2 border-transparent ${gameState === 'selection' ? 'active' : ''}`}>
                             <SelectConsonant disabled={gameIsWon || gameState != 'selection'} letters={selectedConsonants} onSelect={onConsonantSelect} key={`consontats_${selectedConsonants.join('')}`} />
                         </div>
 
-                        <div className={`guess-state border-2 border-transparent ${gameState === 'guess' ? 'active' : ''}`}>
+                        <div className={`p-4 shadow-lg guess-state border-2 border-transparent ${gameState === 'guess' ? 'active' : ''}`}>
                             <SelectVowel disabled={gameIsWon || gameState != 'guess' || playerPoints < vowerlCosts} letters={selectedVowels} onSelect={onVowelSelect} key={`vowels_${selectedVowels.join('')}`} />
 
                             <GuessThePhrase
