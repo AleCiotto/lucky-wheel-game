@@ -43,11 +43,11 @@ function Wheel({ onTransitionEnd, disabled }: WheelProps) {
 
     return (
         <>
-            <div className='relative w-96 h-96'>
+            <div className='relative max-w-full'>
                 <span className='pointer'>▼</span>
                 <div
                     ref={wheelRef}
-                    className={`pie ${isAnimating ? 'spinning' : ''} w-full h-full bg-red-500`}
+                    className={`pie ${isAnimating ? 'spinning' : ''} w-full h-full`}
                     style={{
                         '--previousDegrees': `-${previousDegrees}deg`,
                         '--degrees': `-${degrees}deg`
